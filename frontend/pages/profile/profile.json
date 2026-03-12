@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "user-card": "../../components/user-card/user-card"
+  },
+  "navigationBarTitleText": "个人中心",
+  "navigationBarBackgroundColor": "#007aff",
+  "navigationStyle": "custom"
+}

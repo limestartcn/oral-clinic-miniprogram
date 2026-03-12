@@ -1,0 +1,44 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+/* 全局样式 */
+:root {
+  --primary-color: #007AFF;      /* 主色调 */
+  --success-color: #07C160;      /* 成功状态 */
+  --error-color: #FF4D4F;        /* 错误状态 */
+  --text-primary: #333;          /* 主要文字 */
+  --text-secondary: #666;        /* 次要文字 */
+  --bg-color: #F5F5F5;           /* 背景色 */
+  --card-radius: 16rpx;          /* 卡片圆角 */
+}
+/* 公共卡片样式 */
+.common-card {
+  background: white;
+  border-radius: var(--card-radius);
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+}
+
+/* 通用加载/空状态 */
+.common-status {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+@font-face {
+  font-family: 'vant-icon' !important;
+  src: 
+    url('/fonts/iconfont.woff2') format('woff2'),
+    url('/fonts/iconfont.woff') format('woff');
+}

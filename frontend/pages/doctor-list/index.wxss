@@ -1,0 +1,144 @@
+/* pages/doctor-list/index.wxss */
+.page-container {
+  height: 100vh;
+  background: #f5f5f5;
+}
+
+/* 头部样式 */
+.header {
+  padding: 30rpx;
+  background: #fff;
+  border-bottom: 1rpx solid #eee;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.count {
+  font-size: 26rpx;
+  color: #666;
+}
+
+/* 医生卡片 */
+.doctor-card {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  margin: 20rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.08);
+}
+
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  margin-right: 30rpx;
+}
+
+.info {
+  flex: 1;
+}
+
+.name-row {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 10rpx;
+}
+
+.name {
+  font-size: 32rpx;
+  color: #333;
+  margin-right: 20rpx;
+}
+
+.title {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.department {
+  font-size: 26rpx;
+  color: #07c160;
+  margin-bottom: 8rpx;
+}
+
+.specialty {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  margin-bottom: 15rpx;
+}
+
+.stats {
+  display: flex;
+  align-items: center;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  color: #ffb400;
+  margin-right: 30rpx;
+}
+
+.star-icon {
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 8rpx;
+}
+
+.service-count {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.arrow {
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 20rpx;
+}
+
+/* 加载更多样式 */
+.load-more {
+  text-align: center;
+  padding: 30rpx;
+  color: #666;
+  font-size: 26rpx;
+}
+
+/* 共用状态样式（与department-list相同） */
+.loading-wrapper,
+.error-wrapper,
+.empty-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+}
+
+.loading-icon,
+.empty-icon {
+  width: 120rpx;
+  height: 120rpx;
+  margin-bottom: 30rpx;
+}
+
+.retry-btn {
+  margin-top: 30rpx;
+  font-size: 28rpx;
+  color: #fff;
+  background: #07c160;
+  border-radius: 8rpx;
+}

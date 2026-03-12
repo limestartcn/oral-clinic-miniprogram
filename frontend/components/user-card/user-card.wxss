@@ -1,0 +1,63 @@
+.user-card {
+  background: linear-gradient(135deg, #007aff, #00c4ff);
+  padding: 40rpx;
+  color: white;
+}
+
+.card-content {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  border: 4rpx solid rgba(255,255,255,0.3);
+  margin-right: 30rpx;
+}
+
+.info {
+  flex: 1;
+}
+
+.nickname-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.nickname {
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-right: 20rpx;
+}
+
+.edit-icon {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.mobile {
+  font-size: 28rpx;
+  opacity: 0.9;
+}
+
+.bind-btn {
+  margin-left: 20rpx;
+  padding: 8rpx 20rpx;
+  background: rgba(255,255,255,0.2);
+  border-radius: 40rpx;
+}
+
+.role-tag {
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  margin-left: 20rpx;
+}
+
+.role-1 { /* 普通用户 */
+  background: #e6f4ff;
+  color: #1677ff;
+}

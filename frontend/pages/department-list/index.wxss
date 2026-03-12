@@ -1,0 +1,113 @@
+/* pages/department-list/index.wxss */
+.page-container {
+  height: 100vh;
+  background: #f5f5f5;
+}
+
+/* 头部样式 */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 30rpx;
+  background: #fff;
+  border-bottom: 1rpx solid #eee;
+}
+
+.list-container {
+  height: calc(100vh - 200rpx) !important;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.search-icon image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+/* 搜索框 */
+.search-box {
+  padding: 20rpx 30rpx;
+  background: #fff;
+}
+
+.search-box input {
+  height: 70rpx;
+  padding: 0 30rpx;
+  background: #f5f5f5;
+  border-radius: 35rpx;
+  font-size: 28rpx;
+}
+
+/* 科室列表项 */
+.department-item {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  margin: 20rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.08);
+}
+
+.department-item .icon {
+  width: 80rpx;
+  height: 80rpx;
+  margin-right: 30rpx;
+}
+
+.department-item .info {
+  flex: 1;
+}
+
+.department-item .name {
+  font-size: 32rpx;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.department-item .desc {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.department-item .arrow {
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 20rpx;
+}
+
+/* 加载/空状态样式 */
+.loading-wrapper,
+.error-wrapper,
+.empty-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+}
+
+.loading-icon,
+.empty-icon {
+  width: 120rpx;
+  height: 120rpx;
+  margin-bottom: 30rpx;
+}
+
+.retry-btn {
+  margin-top: 30rpx;
+  font-size: 28rpx;
+  color: #fff;
+  background: #07c160;
+  border-radius: 8rpx;
+}

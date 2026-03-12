@@ -1,0 +1,57 @@
+<!--pages/department-list/index.wxml-->
+<view class="page-container">
+  <!-- 头部搜索栏 -->
+  <view class="header">
+    <view class="title">科室列表</view>
+    <view class="search-icon" bindtap="toggleSearch">
+      <image src="/images/icon-search.png" mode="aspectFit"/>
+    </view>
+  </view>
+
+  <!-- 搜索框 -->
+  <view class="search-box" wx:if="{{showSearch}}">
+    <input 
+      placeholder="输入科室名称或关键词"
+      value="{{searchKeyword}}"
+      bindinput="onSearchInput"
+      confirm-type="search"
+    />
+  </view>
+
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-wrapper">
+    <image src="/images/loading.gif" class="loading-icon"/>
+    <text>加载中...</text>
+  </view>
+
+  <!-- 错误提示 -->
+  <view wx:elif="{{error}}" class="error-wrapper">
+    <text>{{error}}</text>
+    <button class="retry-btn" bindtap="loadDepartments">重新加载</button>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:elif="{{!filteredDepartments.length}}" class="empty-wrapper">
+    <image src="/images/icon-empty.png" class="empty-icon"/>
+    <text>暂无相关科室</text>
+  </view>
+
+  <!-- 科室列表 -->
+  <scroll-view wx:else scroll-y class="list-container" style="height: calc(100vh - 200rpx)">
+    <block wx:for="{{filteredDepartments}}" wx:key="id">
+      <view 
+        class="department-item" 
+        data-id="{{item.id}}"
+        data-name="{{item.name}}"
+        bindtap="navigateToDoctorList"
+      >
+        <image class="icon" src="{{item.iconUrl}}"/>
+        <view class="info">
+          <view class="name">{{item.name}}</view>
+          <view class="desc">{{item.description || '暂无描述'}}</view>
+        </view>
+        <image class="arrow" src="/images/icon-arrow-right.png"/>
+      </view>
+    </block>
+  </scroll-view>
+</view>

@@ -1,0 +1,71 @@
+<!--pages/doctor-detail/index.wxml-->
+<view class="page-container">
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-wrapper">
+    <image src="/images/loading.gif" class="loading-icon"/>
+    <text>加载中...</text>
+  </view>
+
+  <!-- 错误提示 -->
+  <view wx:elif="{{error}}" class="error-wrapper">
+    <text>{{error}}</text>
+    <button class="retry-btn" bindtap="loadDoctorDetail">重新加载</button>
+  </view>
+
+  <!-- 内容区域 -->
+  <scroll-view wx:else scroll-y class="content-container">
+    <!-- 医生卡片 -->
+    <view class="profile-card">
+      <image class="avatar" src="{{doctor.avatar}}"/>
+      <view class="info">
+        <view class="name-row">
+          <text class="name">{{doctor.name}}</text>
+          <text class="title">{{doctor.title}}</text>
+        </view>
+        <view class="department">{{doctor.department}}</view>
+        <view class="stats">
+          <view class="stat-item">
+            <text class="value">{{doctor.rating}}</text>
+            <text class="label">评分</text>
+          </view>
+          <view class="stat-item">
+            <text class="value">{{doctor.serviceCount}}+</text>
+            <text class="label">接诊</text>
+          </view>
+          <view class="stat-item">
+            <text class="value">{{doctor.satisfaction}}</text>
+            <text class="label">满意率</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 擅长领域 -->
+    <view class="section">
+      <view class="section-title">擅长领域</view>
+      <view class="section-content">{{doctor.specialty}}</view>
+    </view>
+
+    <!-- 执业经历 -->
+    <view class="section" wx:if="{{doctor.experience}}">
+      <view class="section-title">执业经历</view>
+      <view class="section-content">{{doctor.experience}}</view>
+    </view>
+  </scroll-view>
+
+  <!-- 简化后的底部操作栏 -->
+  <view class="action-bar">
+    <button 
+      class="btn consult-btn" 
+      bindtap="navigateToChat"
+      hover-class="btn-hover"
+    >在线咨询</button>
+    
+    <button 
+      class="btn appoint-btn" 
+      bindtap="handleAppointment"
+      hover-class="btn-hover"
+      hover-stop-propagation
+    >立即预约</button>
+  </view>
+</view>

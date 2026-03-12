@@ -1,0 +1,90 @@
+<view class="container">
+  <!-- 头部导航 -->
+  <view class="header" style="position: relative; left: -1rpx; top: 64rpx">
+    <view class="back-btn" bindtap="navigateBack">
+      <image style="position: relative; left: -174rpx; top: 4rpx" src="/images/icon-back.png" class="back-icon" />
+    </view>
+    <view class="title">选择就诊时间</view>
+    <view class="step-indicator">步骤 3/4</view>
+  </view>
+
+  <!-- 医生信息 -->
+  <view class="doctor-info" style="width: 410rpx; display: flex; box-sizing: border-box; height: 193rpx">
+    <image src="{{doctor.avatar || '/images/default-avatar.png'}}" class="avatar" />
+    <view class="detail">
+      <view class="name">{{doctor.name}} · {{doctor.title}}</view>
+      <view class="department">{{department.name}}</view>
+    </view>
+  </view>
+
+  <!-- 日期选择 -->
+  <view class="date-section" style="width: 641rpx; display: block; box-sizing: border-box; position: relative; left: -2rpx; top: 77rpx">
+    <view class="section-title">选择日期</view>
+    <picker 
+      mode="date" 
+      start="{{startDate}}" 
+      end="{{endDate}}" 
+      value="{{selectedDate}}" 
+      bindchange="dateChange"
+    >
+      <view class="date-picker">
+        <image src="/images/icon-calendar.png" class="icon" />
+        <!-- 日期显示区域 -->
+        <view class="date-display">
+          <text class="date-text">{{formattedSelectedDate}}</text>
+          <text class="week">{{selectedWeek}}</text>
+        </view>
+      </view>
+    </picker>
+  </view>
+
+  <!-- 时间选择 -->
+  <view class="time-section" style="width: 641rpx; display: block; box-sizing: border-box; height: 485rpx; position: relative; left: -2rpx; top: -95rpx">
+    <view class="section-title">可选时间段</view>
+    
+    <!-- 加载状态 -->
+    <view wx:if="{{loading}}" class="loading-wrapper">
+      <image src="/images/loading.gif" class="loading-icon" />
+      <text>正在加载时间段...</text>
+    </view>
+
+    <!-- 错误状态 -->
+    <view wx:elif="{{error}}" class="error-wrapper">
+      <image src="/images/icon-error.png" class="error-icon" />
+      <text class="error-msg">{{error}}</text>
+      <button class="retry-btn" bindtap="loadTimeSlots">重新加载</button>
+    </view>
+
+    <!-- 时间段列表 -->
+    <scroll-view wx:else scroll-y class="time-list">
+      <block wx:for="{{timeSlots}}" wx:key="id">
+        <view 
+          class="time-item {{item.available ? '' : 'disabled'}} {{selectedTime === item.time_slot ? 'active' : ''}}"
+          bindtap="selectTime"
+          data-time="{{item.time_slot}}"
+          data-id="{{item.id}}"
+        >
+          <text class="time">{{item.displayTime}}</text>
+          <text class="status">{{item.available ? '可预约' : '已约满'}}</text>
+        </view>
+      </block>
+
+      <!-- 空状态 -->
+      <view wx:if="{{!loading && timeSlots.length === 0}}" class="empty">
+        <image src="/images/icon-empty.png" class="empty-icon" />
+        <text class="empty-text">当前日期暂无可用时段</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="footer">
+    <button 
+      class="next-btn" 
+      disabled="{{!selectedTime}}" 
+      bindtap="handleNextStep"
+    >
+      下一步
+    </button>
+  </view>
+</view>

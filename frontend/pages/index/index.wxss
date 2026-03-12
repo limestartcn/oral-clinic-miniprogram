@@ -1,0 +1,88 @@
+.swiper-container {
+  height: 400rpx;
+}
+.swiper-image {
+  width: 100%;
+  height: 100%;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 30rpx 0;
+  background: #fff;
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav-icon {
+  width: 80rpx;
+  height: 80rpx;
+  margin-bottom: 10rpx;
+}
+
+.section-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  padding: 20rpx 30rpx;
+  background: #f8f8f8;
+}
+
+.service-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+  padding: 20rpx;
+}
+.service-card {
+  background: #fff;
+  border-radius: 10rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.1);
+}
+.service-image {
+  width: 100%;
+  height: 300rpx;
+}
+.service-info {
+  padding: 15rpx;
+}
+.service-name {
+  font-size: 28rpx;
+  display: block;
+}
+.service-price {
+  color: #e4393c;
+  font-size: 24rpx;
+}
+
+.login-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx 0;
+}
+.login-btn {
+  width: 60%;
+  margin-bottom: 20rpx;
+}
+.register-text {
+  color: #007aff;
+  font-size: 28rpx;
+}
+
+.user-bar {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background: #fff;
+}
+.user-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}

@@ -1,0 +1,67 @@
+<view class="chat-container">
+  <!-- 头部医生信息 -->
+  <view class="header">
+    <image 
+      src="{{doctorInfo.avatar || '/images/default-avatar.png'}}" 
+      class="header-avatar"
+    />
+    <view class="header-info">
+      <text class="doctor-name">{{doctorInfo.name || '医生'}}</text>
+      <text class="department">{{doctorInfo.department || '口腔科'}}</text>
+    </view>
+  </view>
+
+  <!-- 消息列表（基于会话ID） -->
+  <scroll-view 
+    scroll-y 
+    class="message-list" 
+    scroll-into-view="{{'msg-' + (messages.length - 1)}}"
+    scroll-top="{{scrollTop}}"
+  >
+    <block wx:for="{{messages}}" wx:key="id">
+      <view 
+        id="msg-{{index}}" 
+        class="message-item {{item.sender_id === userInfo.id ? 'right' : 'left'}}"
+      >
+        <!-- 消息内容 -->
+        <view class="bubble">
+          <block wx:if="{{item.type === 1}}">
+            <text class="content">{{item.content}}</text>
+          </block>
+          <block wx:if="{{item.type === 2}}">
+            <image 
+              src="{{item.content}}" 
+              class="image-message" 
+              mode="widthFix"
+              bind:tap="previewImage"
+            />
+          </block>
+          <text class="time">{{item.create_time}}</text>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+
+  <!-- 输入区域 -->
+  <view class="input-area">
+    <van-icon 
+      name="photo" 
+      size="48rpx" 
+      bind:tap="handleImageClick"
+      class="image-btn"
+    />
+    <van-field
+      value="{{inputText}}"
+      placeholder="输入消息..."
+      confirm-type="send"
+      bind:confirm="handleTextConfirm"
+      bind:change="onInputChange"
+    />
+    <van-button 
+      type="primary" 
+      size="small"
+      bind:tap="handleTextClick"
+      custom-class="send-btn"
+    >发送</van-button>
+  </view>
+</view>

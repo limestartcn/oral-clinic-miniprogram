@@ -1,0 +1,38 @@
+/* /styles/role.wxss */
+
+/* 基础角色标签样式 */
+.role-tag {
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  display: inline-block;
+  margin-left: 20rpx;
+}
+
+/* 用户角色 */
+.role-user {
+  background: #e6f4ff;
+  color: #1677ff;
+  border: 1rpx solid #1677ff33;
+}
+
+/* 医生角色 */
+.role-doctor {
+  background: #fff0f6;
+  color: #eb2f96;
+  border: 1rpx solid #eb2f9633;
+}
+
+/* 管理员角色 */
+.role-admin {
+  background: #f9f0ff;
+  color: #722ed1;
+  border: 1rpx solid #722ed133;
+}
+
+/* 监管角色 */
+.role-supervisor {
+  background: #f6ffed;
+  color: #52c41a;
+  border: 1rpx solid #52c41a33;
+}

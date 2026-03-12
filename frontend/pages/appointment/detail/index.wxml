@@ -1,0 +1,139 @@
+<!-- pages/appointment/detail/index.wxml -->
+<view class="container">
+  <!-- 信息卡片 -->
+  <view class="info-card">
+    <view class="card-header">预约详情</view>
+    
+    <!-- 关键信息区块 -->
+    <view class="info-group">
+      <view class="info-item">
+        <text class="info-label">预约时间</text>
+        <text class="info-value highlight">{{appointment.time}}</text>
+      </view>
+      
+      <view class="info-item">
+        <text class="info-label">就诊科室</text>
+        <text class="info-value">{{appointment.department}}</text>
+      </view>
+    </view>
+
+    <!-- 医生信息区块 -->
+    <view class="doctor-info">
+      <image src="{{appointment.doctor.avatar || '/images/default-avatar.png'}}" class="doctor-avatar"/>
+      <view class="doctor-detail">
+        <text class="doctor-name">{{appointment.doctor.name}}医生</text>
+        <text class="doctor-title">主任医师</text>
+      </view>
+    </view>
+
+    <!-- 状态区块 -->
+    <view class="status-container">
+      <text class="status-label">当前状态</text>
+      <view class="status-content">
+        <view class="status-badge status-{{appointment.status}}">
+          {{getStatusText(appointment.status)}}
+        </view>
+        <text class="status-desc" wx:if="{{appointment.status === 1}}">（请在15分钟内完成支付）</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮组（关键修复部分） -->
+  <view class="action-buttons">
+    <!-- 支付按钮（仅待支付状态显示） -->
+    <van-button 
+      type="warning" 
+      bind:tap="handlePayment"
+      wx:if="{{appointment.status === 1}}"
+      custom-class="payment-btn"
+    >立即支付</van-button>
+    
+    <!-- 联系医生（仅已预约状态显示） -->
+    <van-button 
+      type="primary" 
+      bind:tap="navigateToChat"
+      wx:if="{{appointment.status === 2}}"
+      custom-class="chat-btn"
+    >
+      <view class="button-content">
+        <image src="/images/icon-chat.png" class="btn-icon"/>
+        <text class="btn-text">联系医生</text>
+      </view>
+    </van-button>
+    
+    <!-- 取消预约（待支付/已预约状态显示） -->
+    <van-button 
+      plain
+      hairline
+      bind:tap="cancelAppointment"
+      wx:if="{{appointment.status === 1 || appointment.status === 2}}"
+      custom-class="cancel-btn"
+    >取消预约</van-button>
+
+    <!-- 评价按钮（仅已完成且未评价时显示） -->
+    <van-button 
+      type="primary" 
+      bind:tap="openReview"
+      wx:if="{{appointment.status === 3 && !hasReviewed}}"
+      custom-class="review-btn"
+    >立即评价</van-button>
+  </view>
+
+  <!-- 评价弹窗（严格状态控制） -->
+  <van-popup 
+    show="{{showReviewModal && appointment.status === 3}}" 
+    round 
+    bind:close="setData({showReviewModal: false})"
+  >
+    <view class="review-popup">
+      <!-- 标题区 -->
+      <view class="popup-header">
+        <text>服务评价</text>
+        <view class="title-line"></view>
+      </view>
+
+      <!-- 评分区 -->
+      <view class="rate-section">
+        <text class="rate-tips">请点击星星评分</text>
+        <van-rate 
+          size="{{40}}"
+          color="#ffc300" 
+          void-color="#ebedf0"
+          value="{{rating}}" 
+          bind:change="rateChange"
+          allow-half="{{false}}"
+        />
+      </view>
+
+      <!-- 输入区 -->
+      <view class="comment-section">
+        <text class="section-title">就诊体验</text>
+        <textarea 
+          class="comment-input"
+          placeholder="请详细描述您的就诊感受（建议100字以内）"
+          placeholder-class="placeholder-style"
+          auto-height
+          maxlength="100"
+          show-count
+          bindinput="handleCommentInput"
+        />
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="action-btns">
+        <van-button 
+          custom-class="cancel-btn"
+          size="small"
+          bind:tap="closeReviewModal"
+        >取消</van-button>
+        <view class="button-gap"></view>
+        <van-button 
+          type="primary"
+          custom-class="submit-btn"
+          size="small"
+          bind:tap="submitReview"
+        >提交评价</van-button>
+      </view>
+    </view>
+  </van-popup>
+</view>

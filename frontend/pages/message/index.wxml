@@ -1,0 +1,36 @@
+<view class="page-container">
+  <!-- 标题栏 -->
+  <view class="header">
+    <text class="title">我的消息</text>
+  </view>
+
+  <!-- 消息列表 -->
+  <scroll-view scroll-y class="session-list">
+    <!-- 关键修改：使用 conversation_id 作为唯一标识 -->
+    <block wx:for="{{sessions}}" wx:key="conversation_id">
+      <view 
+        class="session-item" 
+        bind:tap="navigateToChat"
+        data-conversationid="{{item.conversation_id}}"
+        data-doctorid="{{item.doctor_id}}"
+      >
+        <!-- 医生头像 -->
+        <image 
+          src="{{item.doctor_avatar || '/images/default-avatar.png'}}" 
+          class="avatar"
+        />
+        <!-- 消息内容 -->
+        <view class="content">
+          <view class="top">
+            <text class="name">{{item.doctor_name}}</text>
+            <text class="time">{{item.last_msg_time}}</text>
+          </view>
+          <text class="message">{{item.last_msg_content}}</text>
+        </view>
+      </view>
+    </block>
+
+    <!-- 空状态 -->
+    <van-empty wx:if="{{sessions.length === 0}}" description="暂无消息" />
+  </scroll-view>
+</view>

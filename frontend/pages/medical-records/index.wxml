@@ -1,0 +1,96 @@
+<!-- pages/medical-records/index.wxml -->
+<view class="container">
+  <!-- 加载状态 -->
+  <block wx:if="{{loading}}">
+    <view class="status-container">
+      <image src="/images/loading.gif" class="status-icon"/>
+      <text class="status-text">加载中...</text>
+    </view>
+  </block>
+
+  <!-- 错误状态 -->
+  <block wx:if="{{error}}">
+    <view class="status-container">
+      <image src="/images/icon-error.png" class="status-icon"/>
+      <text class="status-text error-text">{{error}}</text>
+      <button class="retry-btn" bindtap="onRetry">重新加载</button>
+    </view>
+  </block>
+
+  <!-- 数据展示 -->
+  <block wx:if="{{!loading && !error}}">
+    <scroll-view class="record-list" scroll-y enhanced show-scrollbar="{{false}}">
+      <block wx:for="{{records}}" wx:key="id">
+        <!-- 病例卡片 -->
+        <view class="record-card">
+          <!-- 头部信息 -->
+          <view class="card-header">
+            <view class="header-left">
+              <text class="record-date">{{item.create_time}}</text>
+              <text class="department-tag">{{item.department_name}}</text>
+            </view>
+            <text class="doctor-name">{{item.doctor_name}} 医生</text>
+          </view>
+
+          <!-- 诊断信息 -->
+          <view class="diagnosis-section">
+            <view class="section-title">诊断结果</view>
+            <text class="diagnosis-content">{{item.diagnosis}}</text>
+          </view>
+
+          <!-- 治疗方案 -->
+          <view class="treatment-section" wx:if="{{item.treatment}}">
+            <view class="section-title">治疗方案</view>
+            <text class="treatment-content">{{item.treatment}}</text>
+          </view>
+
+          <!-- 处方信息 -->
+          <view class="prescription-section" wx:if="{{item.formattedPrescription}}">
+            <view class="section-title">用药处方</view>
+            <block wx:for="{{item.formattedPrescription.medications}}" wx:key="name">
+              <view class="medication-item">
+                <text class="medication-name">{{item.name}}</text>
+                <text class="medication-detail">{{item.usage}}</text>
+              </view>
+            </block>
+            <view class="followup" wx:if="{{item.formattedPrescription.followUp}}">
+              <text class="followup-label">复诊建议：</text>
+              <text>{{item.formattedPrescription.followUp}}</text>
+            </view>
+          </view>
+
+          <!-- 操作区域 -->
+          <view class="action-bar">
+            <button 
+              class="attachment-btn" 
+              bindtap="onPreviewAttachment" 
+              data-index="{{index}}"
+              disabled="{{!item.attachments.length}}"
+            >
+              <image src="/images/icon-attachment.png" class="btn-icon"/>
+              <text>医疗附件({{item.attachments.length}})</text>
+            </button>
+            <button class="detail-btn" bindtap="onViewDetail" data-id="{{item.id}}">
+              查看完整详情
+            </button>
+          </view>
+        </view>
+      </block>
+
+      <!-- 空状态 -->
+      <block wx:if="{{records.length === 0}}">
+        <view class="empty-container">
+          <image src="/images/icon-empty-doctors.png" class="empty-icon"/>
+          <text class="empty-text">暂无健康档案记录</text>
+        </view>
+      </block>
+    </scroll-view>
+  </block>
+
+  <!-- 详情弹窗 -->
+  <medical-detail-modal 
+    wx:if="{{showDetail}}"
+    record="{{currentRecord}}"
+    bindclose="onCloseDetail"
+  />
+</view>

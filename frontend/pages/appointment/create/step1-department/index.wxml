@@ -1,0 +1,50 @@
+<view class="container" style="position: relative; left: 0rpx; top: 91rpx">
+  <!-- 头部导航 -->
+  <view class="header">
+    <!-- 新增返回按钮 -->
+    <image 
+      src="/images/icon-back.png" 
+      class="back-icon" 
+      bindtap="handleBack"
+    />
+    <view class="title">选择就诊科室</view>
+    <view class="step-indicator">步骤 1/4</view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-wrapper">
+    <image src="/images/loading.gif" class="loading-icon" />
+    <text>正在加载科室信息...</text>
+  </view>
+
+  <!-- 错误状态 -->
+  <view wx:elif="{{error}}" class="error-wrapper">
+    <image src="/images/icon-error.png" class="error-icon" />
+    <text class="error-msg">{{error}}</text>
+    <button class="retry-btn" bindtap="loadDepartments">重新加载</button>
+  </view>
+
+  <!-- 科室列表 -->
+  <scroll-view wx:else scroll-y class="department-list">
+    <block wx:for="{{departments}}" wx:key="id">
+      <view 
+        class="department-item {{selectedId === item.id ? 'active' : ''}}"
+        bindtap="selectDepartment"
+        data-id="{{item.id}}"
+      >
+        <image class="department-icon" src="{{item.icon || '/images/default-department.png'}}" />
+        <view class="info">
+          <view class="name">{{item.name}}</view>
+          <view class="desc">{{item.description || '暂无科室介绍'}}</view>
+        </view>
+        <image class="arrow" src="/images/arrow-right.png" />
+      </view>
+    </block>
+
+    <!-- 空状态 -->
+    <view wx:if="{{departments.length === 0}}" class="empty">
+      <image src="/images/icon-empty.png" class="empty-icon" />
+      <text class="empty-text">暂无可用科室</text>
+    </view>
+  </scroll-view>
+</view>

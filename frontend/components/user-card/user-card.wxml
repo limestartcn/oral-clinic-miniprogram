@@ -1,0 +1,25 @@
+<view class="user-card">
+  <view class="card-content">
+    <image 
+      src="{{userInfo.avatar || '/images/default-avatar.png'}}" 
+      class="avatar"
+      bindtap="previewAvatar"
+    />
+    <view class="info">
+      <view class="nickname-row">
+        <text class="nickname">{{userInfo.nickname}}</text>
+          <text class="role-tag role-{{userInfo.roleId}}">
+            {{userInfo.roleName || '普通用户'}}
+          </text>
+      </view>
+      <text class="mobile">
+        {{userInfo.mobile ? userInfo.mobile : '未绑定手机号'}}
+        <text 
+          class="bind-btn" 
+          wx:if="{{!userInfo.mobile}}"
+          bindtap="onBindMobile"
+        >立即绑定</text>
+      </text>
+    </view>
+  </view>
+</view>

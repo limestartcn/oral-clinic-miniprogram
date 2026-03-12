@@ -1,0 +1,24 @@
+<!-- components/calendar/index.wxml -->
+<view class="calendar-container">
+  <view class="header">
+    <view class="arrow left" bindtap="handlePrevMonth">←</view>
+    <text class="title">{{currentYear}}年{{currentMonth}}月</text>
+    <view class="arrow right" bindtap="handleNextMonth">→</view>
+  </view>
+
+  <view class="weekdays">
+    <view wx:for="{{['日','一','二','三','四','五','六']}}" 
+          wx:key="index"
+          class="weekday">{{item}}</view>
+  </view>
+
+  <view class="days">
+    <view wx:for="{{days}}" 
+          wx:key="index"
+          class="day {{item.isToday ? 'today' : ''}} {{item.isSelected ? 'selected' : ''}}"
+          bindtap="selectDate"
+          data-date="{{item.date}}">
+      {{item.day}}
+    </view>
+  </view>
+</view>

@@ -1,0 +1,71 @@
+<!-- 头部轮播图 -->
+<swiper class="swiper-container" indicator-dots autoplay interval="5000">
+  <block wx:for="{{banners}}" wx:key="index">
+    <swiper-item>
+      <image src="{{item.imgUrl}}" mode="aspectFill" class="swiper-image" />
+    </swiper-item>
+  </block>
+</swiper>
+
+<!-- 快速导航 -->
+<view class="nav-container">
+  <view class="nav-item" bindtap="navigateToAppointment">
+    <image src="/images/icon-appointment.png" class="nav-icon"/>
+    <text>立即预约</text>
+  </view>
+  <view class="nav-item" bindtap="navigateToDepartmentList">
+    <image src="/images/icon-doctor.png" class="nav-icon"/>
+    <text>科室医生</text>
+  </view>
+  <view class="nav-item" bindtap="checkAuthBeforeNavigate">
+    <image src="/images/icon-user.png" class="nav-icon"/>
+    <text>个人中心</text>
+  </view>
+</view>
+
+<!-- 服务展示 -->
+<view class="section-title">特色服务</view>
+<view class="service-container">
+  <block wx:for="{{services}}" wx:key="index">
+    <view class="service-card" data-id="{{item.id}}" bindtap="showServiceDetail">
+      <image src="{{item.thumbnail}}" class="service-image"/>
+      <view class="service-info">
+        <text class="service-name">{{item.name}}</text>
+        <!--<text class="service-price">￥{{item.price}}</text>-->
+      </view>
+    </view>
+  </block>
+</view>
+
+<!-- 登录状态栏 -->
+<view class="login-bar" wx:if="{{!hasLogin}}">
+  <button class="login-btn" type="primary" bindtap="handleLogin">立即登录</button>
+  <text class="register-text" bindtap="navigateToRegister">新用户注册</text>
+</view>
+<!--
+  <view class="user-bar" wx:else>
+  <image src="{{userInfo.avatarUrl}}" class="user-avatar"/>
+  <text class="welcome-text">欢迎回来，{{userInfo.nickName}}</text>
+</view>
+-->
+
+<!-- 在用户信息区域添加角色标识 -->
+<view class="user-bar" wx:if="{{hasLogin}}">
+  <image src="{{userInfo.avatarUrl}}" class="user-avatar"/>
+  <view class="user-info">
+    <text class="welcome-text">欢迎回来!{{userInfo.nickName}}</text>
+    <text class="role-tag role-{{userInfo.roleName}}">
+      {{userInfo.roleName}}
+    </text>
+  </view>
+</view>
+
+<!-- 动态菜单 -->
+<view class="role-menu">
+  <block wx:for="{{getRoleMenu()}}" wx:key="index">
+    <view class="menu-item" bindtap="navigateTo{{item.name}}">
+      <image src="/images/{{item.icon}}.png"/>
+      <text>{{item.name}}</text>
+    </view>
+  </block>
+</view>

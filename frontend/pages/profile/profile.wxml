@@ -1,0 +1,64 @@
+<!-- 用户信息卡片 -->
+<user-card style="position: relative; left: 0rpx; top: 93rpx" 
+  user-info="{{userInfo}}"
+  bind:editNickname="showNicknameDialog"
+  bind:bindMobile="navigateToBindMobile"
+/>
+
+<!-- 功能菜单 -->
+<view class="menu-container" style="height: 543rpx; display: block; box-sizing: border-box">
+  <block wx:for="{{features}}" wx:key="index">
+    <navigator 
+      url="{{item.url}}" 
+      class="menu-item"
+      hover-class="none"
+     style="position: relative; left: 6rpx; top: 104rpx">
+      <image src="/images/icon-{{item.icon}}.png" class="menu-icon"/>
+      <text class="menu-text">{{item.name}}</text>
+      <image src="/images/icon-arrow.png" class="arrow-icon"/>
+      <view class="badge" wx:if="{{item.name === '我的预约' && appointmentCount > 0}}">
+        {{appointmentCount}}
+      </view>
+    </navigator>
+  </block>
+</view>
+
+<!-- 操作按钮 -->
+<view class="action-container">
+  <button 
+    class="logout-btn" 
+    bindtap="handleLogout"
+  >
+    退出登录
+  </button>
+
+  <!-- 新增返回首页按钮 -->
+  <button 
+    class="return-home-btn" 
+    bindtap="navigateToHome"
+    hover-class="button-hover"
+    hover-stop-propagation
+  >
+    返回首页
+  </button>
+</view>
+
+<!-- 修改昵称弹窗 -->
+<van-dialog 
+  id="van-dialog" 
+  title="修改昵称" 
+  show="{{showNicknameDialog}}"
+  bind:close="onCloseDialog"
+>
+  <view class="dialog-content">
+    <input 
+      type="text" 
+      placeholder="请输入新昵称" 
+      value="{{newNickname}}"
+      bindinput="onNicknameInput"
+      maxlength="20"
+    />
+  </view>
+  <button slot="footer" bindtap="submitNickname" style="position: relative; left: -1rpx; top: 22rpx">确认修改</button>
+</van-dialog>
+

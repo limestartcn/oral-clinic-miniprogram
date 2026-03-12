@@ -1,0 +1,11 @@
+<view class="menu">
+  <block wx:for="{{menuItems}}" wx:key="path">
+    <navigator 
+      url="{{item.path}}" 
+      class="menu-item {{active === item.path ? 'active' : ''}}"
+      wx:if="{{hasPermission(item.required)}}"
+    >
+      {{item.name}}
+    </navigator>
+  </block>
+</view>

@@ -1,0 +1,80 @@
+<view class="container" style="position: relative; left: 0rpx; top: 89rpx">
+  <!-- 头部导航 -->
+  <view class="header">
+    <!-- 新增返回按钮 -->
+    <image 
+      src="/images/icon-back.png" 
+      class="back-icon" 
+      bindtap="navigateBack"
+    />
+    <view class="title">选择就诊医生</view>
+    <view class="step-indicator">步骤 2/4</view>
+  </view>
+
+  <!-- 科室信息 -->
+  <view class="department-info">
+    <image src="/images/icon-department.png" class="icon" />
+    <text class="name">{{departmentName}}</text>
+  </view>
+
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-wrapper">
+    <image src="/images/loading.gif" class="loading-icon" />
+    <text>正在加载医生信息...</text>
+  </view>
+
+  <!-- 错误状态 -->
+  <view wx:elif="{{error}}" class="error-wrapper">
+    <image src="/images/icon-error.png" class="error-icon" />
+    <text class="error-msg">{{error}}</text>
+    <button class="retry-btn" bindtap="loadDoctors">重新加载</button>
+  </view>
+
+  <!-- 医生列表 -->
+  <scroll-view wx:else scroll-y class="doctor-list" style="height: 1460rpx; display: block; box-sizing: border-box">
+    <block wx:for="{{doctors}}" wx:key="id">
+      <view 
+        class="doctor-card" 
+        bindtap="selectDoctor" 
+        data-doctor="{{item}}"
+      >
+        <image class="avatar" src="{{item.icon || '/images/departments/default.png'}}" />
+        <view class="info">
+          <view class="base-info">
+            <text class="name">{{item.name}}</text>
+            <text class="title">{{item.title}}</text>
+            <view class="rating">
+              <image 
+                wx:for="[1,2,3,4,5]" 
+                wx:key="index" 
+                src="{{index < item.rating ? '/images/star-full.png' : '/images/star-empty.png'}}" 
+                class="star"
+              />
+            </view>
+          </view>
+          <view class="specialty">
+            <text class="label">擅长：</text>
+            <text class="text">{{item.specialty || '暂无擅长领域信息'}}</text>
+          </view>
+          <view class="stat">
+            <view class="stat-item">
+              <image src="/images/icon-service.png" class="stat-icon" />
+              <text>接诊{{item.serviceCount || 0}}次</text>
+            </view>
+            <view class="stat-item">
+              <image src="/images/icon-like.png" class="stat-icon" />
+              <text>{{item.satisfaction || 100}}%满意</text>
+            </view>
+          </view>
+        </view>
+        <image class="arrow" src="/images/arrow-right.png" />
+      </view>
+    </block>
+
+    <!-- 空状态 -->
+    <view wx:if="{{doctors.length === 0}}" class="empty">
+      <image src="/images/icon-empty.png" class="empty-icon" />
+      <text class="empty-text">当前科室暂无医生排班</text>
+    </view>
+  </scroll-view>
+</view>

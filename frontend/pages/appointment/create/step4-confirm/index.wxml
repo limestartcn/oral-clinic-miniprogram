@@ -1,0 +1,77 @@
+<!-- pages/appointment/create/step4-confirm/index.wxml -->
+<view class="container" style="position: relative; left: 0rpx; top: 87rpx">
+  <!-- 头部导航 -->
+  <view class="header">
+    <view class="back-btn" bindtap="navigateBack">
+      <image src="/images/icon-back.png" class="back-icon" />
+    </view>
+    <view class="title">确认预约信息</view>
+    <view class="step-indicator">步骤 4/4</view>
+  </view>
+
+  <!-- 预约信息卡片 -->
+  <view class="info-card" style="position: relative; left: 1rpx; top: -222rpx; width: 545rpx; display: block; box-sizing: border-box; height: 1097rpx">
+    <view class="section">
+      <view class="section-title">医生信息</view>
+      <view class="doctor-info">
+        <image src="{{doctor.avatar || '/images/default-avatar.png'}}" class="avatar" />
+        <view class="detail">
+          <view class="name">{{doctor.name}} · {{doctor.title}}</view>
+          <view class="department">{{department.name}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="section">
+      <view class="section-title">就诊时间</view>
+      <view class="time-info">
+        <text class="date">{{formattedDate}} {{selectedWeek}}</text>
+        <text class="time">{{selectedTime}}</text>
+      </view>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="section">
+      <view class="section-title">就诊人信息</view>
+      <input style="width: 483rpx; display: block; box-sizing: border-box; position: relative; left: 4rpx; top: 33rpx; height: 77rpx" 
+        class="input" 
+        placeholder="请输入姓名" 
+        value="{{patientName}}" 
+        bindinput="onPatientNameInput"
+      />
+      <input style="width: 479rpx; display: block; box-sizing: border-box; height: 74rpx; position: relative; left: 6rpx; top: 52rpx" 
+        class="input" 
+        placeholder="请输入手机号" 
+        type="number" 
+        value="{{patientMobile}}" 
+        bindinput="onPatientMobileInput"
+      />
+    </view>
+
+    <view class="divider" style="height: 2rpx; display: block; box-sizing: border-box; position: relative; left: 0rpx; top: 33rpx"></view>
+
+    <view class="section" style="height: 2rpx; display: block; box-sizing: border-box">
+      <view class="section-title" style="height: 50rpx; display: block; box-sizing: border-box; position: relative; left: 0rpx; top: 43rpx">备注（选填）</view>
+      <textarea style="width: 487rpx; display: block; box-sizing: border-box; left: 0rpx; top: 47rpx; position: relative; height: 212rpx" 
+        class="textarea" 
+        placeholder="请输入症状描述或其他备注" 
+        value="{{remark}}" 
+        bindinput="onRemarkInput"
+      />
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="footer" style="position: fixed; left: -2rpx; top: 1485rpx">
+    <button 
+      class="submit-btn" 
+      bindtap="handleSubmit"
+      disabled="{{isSubmitting || !isFormValid}}"
+    >
+      {{isSubmitting ? '提交中...' : '确认预约'}}
+    </button>
+  </view>
+</view>

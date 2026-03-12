@@ -1,0 +1,3 @@
+<view class="auth-container" bindtap="checkAuth">
+  <slot></slot>
+</view>
